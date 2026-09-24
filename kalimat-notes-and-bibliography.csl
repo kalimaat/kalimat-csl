@@ -1,0 +1,1137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl"
+       version="1.0"
+       class="note"
+       default-locale="en-US"
+       demote-non-dropping-particle="sort-only"
+       initialize-with=". ">
+  <info>
+    <title>kalimat Notes and Bibliography</title>
+    <title-short>kalimat</title-short>
+    <id>http://www.zotero.org/styles/kalimat-notes-and-bibliography</id>
+    <link href="http://www.zotero.org/styles/kalimat-notes-and-bibliography" rel="self"/>
+    <link href="http://www.zotero.org/styles/chicago-shortened-notes-bibliography" rel="template"/>
+    <author>
+      <name>Kalimat Editorial Team</name>
+    </author>
+    <category citation-format="note"/>
+    <category field="literature"/>
+    <summary>KALiMaT short notes and bibliography for mixed Arabic- and Latin-script sources.</summary>
+    <updated>2026-09-24T12:00:00+00:00</updated>
+    <rights license="http://creativecommons.org/licenses/by-sa/4.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</rights>
+  </info>
+
+  <!--
+    Zotero/citeproc-js uses the BCP 47 language value to select the script
+    branch. Use ar-Arab for Arabic script and ar-Latn for transliteration.
+  -->
+  <locale xml:lang="ar">
+    <style-options punctuation-in-quote="false"/>
+    <terms>
+      <term name="and">و</term>
+      <term name="and others">وآخرون</term>
+      <term name="et-al">آخرون</term>
+      <term name="open-quote">«</term>
+      <term name="close-quote">»</term>
+      <term name="open-inner-quote">‹</term>
+      <term name="close-inner-quote">›</term>
+      <term name="no date">د.ت.</term>
+      <term name="page" form="short">ص</term>
+      <term name="folio" form="short">ق</term>
+      <term name="page-range-delimiter">–</term>
+      <term name="editor" form="verb">تحرير</term>
+      <term name="editor" form="verb-short">تحرير</term>
+      <term name="translator" form="verb">ترجمة</term>
+      <term name="translator" form="verb-short">ترجمة</term>
+      <term name="month-01">يناير</term>
+      <term name="month-02">فبراير</term>
+      <term name="month-03">مارس</term>
+      <term name="month-04">أبريل</term>
+      <term name="month-05">مايو</term>
+      <term name="month-06">يونيو</term>
+      <term name="month-07">يوليو</term>
+      <term name="month-08">أغسطس</term>
+      <term name="month-09">سبتمبر</term>
+      <term name="month-10">أكتوبر</term>
+      <term name="month-11">نوفمبر</term>
+      <term name="month-12">ديسمبر</term>
+    </terms>
+  </locale>
+
+  <!-- Shared sorting. Names must be encoded with the required index element
+       in family and the remainder in given. CSL cannot drop ʿ, ʾ or an
+       internal al- from a sort key, so a Zotero Extra line
+       "kalimat-sort: …" replaces the creator key for such names. -->
+  <macro name="sort-creator">
+    <choose>
+      <if variable="kalimat-sort">
+        <text variable="kalimat-sort"/>
+      </if>
+      <else>
+        <names variable="author">
+          <name name-as-sort-order="all" initialize="false"/>
+          <substitute>
+            <names variable="editor">
+              <name name-as-sort-order="all" initialize="false"/>
+            </names>
+            <text variable="title"/>
+          </substitute>
+        </names>
+      </else>
+    </choose>
+  </macro>
+
+  <!-- Dates -->
+  <macro name="year-ar">
+    <choose>
+      <if variable="issued">
+        <date variable="issued">
+          <date-part name="year"/>
+        </date>
+      </if>
+      <else>
+        <text term="no date"/>
+      </else>
+    </choose>
+  </macro>
+
+  <macro name="year-en">
+    <choose>
+      <if variable="issued">
+        <date variable="issued">
+          <date-part name="year"/>
+        </date>
+      </if>
+      <else>
+        <text term="no date"/>
+      </else>
+    </choose>
+  </macro>
+
+  <macro name="date-full-ar">
+    <choose>
+      <if variable="issued">
+        <date variable="issued" delimiter="، ">
+          <date-part name="year"/>
+          <date-part name="day" suffix=" "/>
+          <date-part name="month" form="long"/>
+        </date>
+      </if>
+      <else>
+        <text term="no date"/>
+      </else>
+    </choose>
+  </macro>
+
+  <macro name="date-periodical-en">
+    <group delimiter=" ">
+      <date variable="issued">
+        <date-part name="month" form="long"/>
+      </date>
+      <date variable="issued" prefix="(" suffix=")">
+        <date-part name="year"/>
+      </date>
+    </group>
+  </macro>
+
+  <macro name="date-accessed-ar">
+    <date variable="accessed" delimiter=" ">
+      <date-part name="day"/>
+      <date-part name="month" form="long"/>
+      <date-part name="year"/>
+    </date>
+  </macro>
+
+  <macro name="date-accessed-en">
+    <date variable="accessed" delimiter=" ">
+      <date-part name="month" form="long" suffix=" "/>
+      <date-part name="day" suffix=", "/>
+      <date-part name="year"/>
+    </date>
+  </macro>
+
+  <macro name="original-date-ar">
+    <date variable="original-date">
+      <date-part name="year"/>
+    </date>
+  </macro>
+
+  <!-- Names: Arabic -->
+  <macro name="creator-note-ar">
+    <names variable="author">
+      <name delimiter="، و"
+            delimiter-precedes-et-al="never"
+            et-al-min="4"
+            et-al-use-first="1"
+            form="short"
+            initialize="false"/>
+      <et-al term="and others"/>
+      <substitute>
+        <names variable="editor">
+          <name delimiter="، و"
+                delimiter-precedes-et-al="never"
+                et-al-min="4"
+                et-al-use-first="1"
+                form="short"
+                initialize="false"/>
+          <et-al term="and others"/>
+        </names>
+      </substitute>
+    </names>
+  </macro>
+
+  <macro name="creator-bib-ar">
+    <choose>
+      <if variable="author">
+        <names variable="author">
+          <name delimiter="، و"
+                delimiter-precedes-et-al="always"
+                et-al-min="4"
+                et-al-use-first="3"
+                initialize="false"
+                name-as-sort-order="first"
+                sort-separator="، "/>
+        </names>
+      </if>
+      <else-if variable="editor">
+        <group delimiter=" ">
+          <names variable="editor">
+            <name delimiter="، و"
+                  delimiter-precedes-et-al="always"
+                  et-al-min="4"
+                  et-al-use-first="3"
+                  initialize="false"
+                  name-as-sort-order="first"
+                  sort-separator="، "/>
+          </names>
+          <text value="(تحرير)"/>
+        </group>
+      </else-if>
+    </choose>
+  </macro>
+
+  <macro name="names-editor-ar">
+    <names variable="editor">
+      <name delimiter="، و"
+            delimiter-precedes-et-al="always"
+            et-al-min="4"
+            et-al-use-first="3"
+            initialize="false"/>
+    </names>
+  </macro>
+
+  <macro name="names-translator-ar">
+    <names variable="translator">
+      <name delimiter="، و"
+            delimiter-precedes-et-al="always"
+            et-al-min="4"
+            et-al-use-first="3"
+            initialize="false"/>
+    </names>
+  </macro>
+
+  <macro name="names-container-author-ar">
+    <names variable="container-author">
+      <name delimiter="، و"
+            delimiter-precedes-et-al="always"
+            et-al-min="4"
+            et-al-use-first="3"
+            initialize="false"/>
+    </names>
+  </macro>
+
+  <!-- Names: Latin script -->
+  <macro name="creator-note-en">
+    <names variable="author">
+      <name and="text"
+            delimiter=", "
+            delimiter-precedes-last="never"
+            delimiter-precedes-et-al="never"
+            et-al-min="4"
+            et-al-use-first="1"
+            form="short"
+            initialize="false"/>
+      <substitute>
+        <names variable="editor">
+          <name and="text"
+                delimiter=", "
+                delimiter-precedes-last="never"
+                delimiter-precedes-et-al="never"
+                et-al-min="4"
+                et-al-use-first="1"
+                form="short"
+                initialize="false"/>
+        </names>
+      </substitute>
+    </names>
+  </macro>
+
+  <macro name="creator-bib-en">
+    <choose>
+      <if variable="author">
+        <names variable="author">
+          <name and="text"
+                delimiter=", "
+                delimiter-precedes-last="never"
+                delimiter-precedes-et-al="always"
+                et-al-min="4"
+                et-al-use-first="3"
+                initialize="false"
+                name-as-sort-order="first"
+                sort-separator=", "/>
+        </names>
+      </if>
+      <else-if variable="editor">
+        <names variable="editor">
+          <name and="text"
+                delimiter=", "
+                delimiter-precedes-last="never"
+                delimiter-precedes-et-al="always"
+                et-al-min="4"
+                et-al-use-first="3"
+                initialize="false"
+                name-as-sort-order="first"
+                sort-separator=", "/>
+          <label form="short" prefix=", "/>
+        </names>
+      </else-if>
+    </choose>
+  </macro>
+
+  <macro name="names-editor-en">
+    <names variable="editor">
+      <name and="text"
+            delimiter=", "
+            delimiter-precedes-last="never"
+            delimiter-precedes-et-al="always"
+            et-al-min="4"
+            et-al-use-first="3"
+            initialize="false"/>
+    </names>
+  </macro>
+
+  <macro name="names-translator-en">
+    <names variable="translator">
+      <name and="text"
+            delimiter=", "
+            delimiter-precedes-last="never"
+            delimiter-precedes-et-al="always"
+            et-al-min="4"
+            et-al-use-first="3"
+            initialize="false"/>
+    </names>
+  </macro>
+
+  <!-- Titles -->
+  <macro name="title-note-ar">
+    <choose>
+      <if type="article-journal article-magazine article-newspaper chapter entry entry-dictionary entry-encyclopedia webpage post-weblog" match="any">
+        <text variable="title" form="short" prefix="«" suffix="»"/>
+      </if>
+      <else>
+        <text variable="title" form="short" font-weight="bold"/>
+      </else>
+    </choose>
+  </macro>
+
+  <macro name="title-note-en">
+    <choose>
+      <if type="article-journal article-magazine article-newspaper chapter entry entry-dictionary entry-encyclopedia thesis webpage post-weblog" match="any">
+        <text variable="title" form="short" quotes="true"/>
+      </if>
+      <else>
+        <text variable="title" form="short" font-style="italic"/>
+      </else>
+    </choose>
+  </macro>
+
+  <macro name="title-book-ar">
+    <text variable="title" font-weight="bold"/>
+  </macro>
+
+  <macro name="title-book-en">
+    <group delimiter=" ">
+      <text variable="title" font-style="italic"/>
+      <text variable="original-title" prefix="[" suffix="]"/>
+    </group>
+  </macro>
+
+  <macro name="title-dependent-ar">
+    <text variable="title" prefix="«" suffix="»"/>
+  </macro>
+
+  <macro name="title-article-en">
+    <group delimiter=" ">
+      <text variable="title" quotes="true"/>
+      <text variable="original-title" prefix="[" suffix="]"/>
+    </group>
+  </macro>
+
+  <macro name="title-chapter-ar">
+    <text macro="title-dependent-ar"/>
+  </macro>
+
+  <macro name="title-chapter-en">
+    <group delimiter=" ">
+      <text variable="title" quotes="true"/>
+      <text variable="original-title" prefix="[" suffix="]"/>
+    </group>
+  </macro>
+
+  <!-- Publication and links -->
+  <macro name="publisher-ar">
+    <group delimiter=": ">
+      <text variable="publisher-place"/>
+      <text variable="publisher"/>
+    </group>
+  </macro>
+
+  <macro name="publisher-en">
+    <group delimiter=": ">
+      <text variable="publisher-place"/>
+      <text variable="publisher"/>
+    </group>
+  </macro>
+
+  <macro name="pages-ar">
+    <text variable="page"/>
+  </macro>
+
+  <macro name="doi-url-ar">
+    <choose>
+      <if variable="DOI">
+        <text variable="DOI" prefix="&#x200E;https://doi.org/" suffix="&#x200E;"/>
+      </if>
+      <else-if variable="URL">
+        <text variable="URL" prefix="&#x200E;" suffix="&#x200E;"/>
+      </else-if>
+    </choose>
+  </macro>
+
+  <macro name="doi-url-en">
+    <choose>
+      <if variable="DOI">
+        <text variable="DOI" prefix="https://doi.org/"/>
+      </if>
+      <else-if variable="URL">
+        <text variable="URL"/>
+      </else-if>
+    </choose>
+  </macro>
+
+  <macro name="edition-volume-ar">
+    <group delimiter=" ">
+      <text variable="edition" prefix="(ط. " suffix=")"/>
+      <text variable="volume" prefix="(ج " suffix=")"/>
+    </group>
+  </macro>
+
+  <macro name="edition-volume-en">
+    <group delimiter=", ">
+      <group delimiter=" ">
+        <number variable="edition" form="ordinal"/>
+        <text value="ed."/>
+      </group>
+      <group delimiter=" ">
+        <text value="vol."/>
+        <text variable="volume"/>
+      </group>
+    </group>
+  </macro>
+
+  <macro name="contributors-book-ar">
+    <group delimiter=". ">
+      <choose>
+        <if variable="editor">
+          <group delimiter=" ">
+            <text value="تحقيق"/>
+            <text macro="names-editor-ar"/>
+          </group>
+        </if>
+      </choose>
+      <choose>
+        <if variable="translator">
+          <group delimiter=" ">
+            <text value="ترجمة"/>
+            <text macro="names-translator-ar"/>
+          </group>
+        </if>
+      </choose>
+    </group>
+  </macro>
+
+  <macro name="contributors-book-en">
+    <choose>
+      <if variable="editor-translator">
+        <group delimiter=" ">
+          <text value="ed. and trans."/>
+          <names variable="editor-translator">
+            <name and="text" delimiter=", " delimiter-precedes-last="never" initialize="false"/>
+          </names>
+        </group>
+      </if>
+      <else-if variable="editor translator" match="all">
+        <group delimiter=", ">
+          <group delimiter=" ">
+            <text value="ed."/>
+            <text macro="names-editor-en"/>
+          </group>
+          <group delimiter=" ">
+            <text value="trans."/>
+            <text macro="names-translator-en"/>
+          </group>
+        </group>
+      </else-if>
+      <else-if variable="editor">
+        <group delimiter=" ">
+          <text value="ed."/>
+          <text macro="names-editor-en"/>
+        </group>
+      </else-if>
+      <else-if variable="translator">
+        <group delimiter=" ">
+          <text value="trans."/>
+          <text macro="names-translator-en"/>
+        </group>
+      </else-if>
+    </choose>
+  </macro>
+
+  <macro name="quran-note-ar">
+    <group delimiter="، ">
+      <text variable="citation-label"/>
+      <group>
+        <group delimiter="/">
+          <text variable="volume"/>
+          <text variable="title"/>
+        </group>
+        <text variable="locator" prefix=": "/>
+      </group>
+    </group>
+  </macro>
+
+  <macro name="quran-note-en">
+    <group delimiter=" ">
+      <text variable="citation-label"/>
+      <group>
+        <group delimiter="/">
+          <text variable="volume"/>
+          <text variable="title" font-style="italic"/>
+        </group>
+        <text variable="locator" prefix=": "/>
+      </group>
+    </group>
+  </macro>
+
+  <!-- Short notes -->
+  <!-- Critical editions and translations of historical texts carry the
+       Zotero Extra line "type: classic"; their notes name the editor or
+       translator after the short title. Other editors stay out of notes. -->
+  <macro name="note-edition-ar">
+    <choose>
+      <if type="classic" variable="editor-translator" match="all">
+        <group delimiter=" " prefix="(" suffix=")">
+          <text value="تحقيق وترجمة"/>
+          <names variable="editor-translator">
+            <name delimiter="، و"
+                  delimiter-precedes-et-al="never"
+                  et-al-min="4"
+                  et-al-use-first="1"
+                  form="short"
+                  initialize="false"/>
+            <et-al term="and others"/>
+          </names>
+        </group>
+      </if>
+      <else-if type="classic">
+        <choose>
+          <if variable="editor translator" match="any">
+            <group delimiter="، " prefix="(" suffix=")">
+              <group delimiter=" ">
+                <text value="تحقيق"/>
+                <names variable="editor">
+                  <name delimiter="، و"
+                        delimiter-precedes-et-al="never"
+                        et-al-min="4"
+                        et-al-use-first="1"
+                        form="short"
+                        initialize="false"/>
+                  <et-al term="and others"/>
+                </names>
+              </group>
+              <group delimiter=" ">
+                <text value="ترجمة"/>
+                <names variable="translator">
+                  <name delimiter="، و"
+                        delimiter-precedes-et-al="never"
+                        et-al-min="4"
+                        et-al-use-first="1"
+                        form="short"
+                        initialize="false"/>
+                  <et-al term="and others"/>
+                </names>
+              </group>
+            </group>
+          </if>
+          <else>
+            <!-- Without an editor (a reprint, or an annotator recorded as a contributor), Arabic
+                 practice names the press: "(ط. دار الكتب العلمية)". -->
+            <group delimiter=" " prefix="(" suffix=")">
+              <text value="ط."/>
+              <text variable="publisher"/>
+            </group>
+          </else>
+        </choose>
+      </else-if>
+    </choose>
+  </macro>
+
+  <macro name="note-edition-en">
+    <choose>
+      <if type="classic" variable="editor-translator" match="all">
+        <group delimiter=" " prefix="(" suffix=")">
+          <text value="ed. and trans."/>
+          <names variable="editor-translator">
+            <name and="text"
+                  delimiter=", "
+                  delimiter-precedes-last="never"
+                  delimiter-precedes-et-al="never"
+                  et-al-min="4"
+                  et-al-use-first="1"
+                  form="short"
+                  initialize="false"/>
+          </names>
+        </group>
+      </if>
+      <else-if type="classic">
+        <group delimiter=", " prefix="(" suffix=")">
+          <group delimiter=" ">
+            <text value="ed."/>
+            <names variable="editor">
+              <name and="text"
+                    delimiter=", "
+                    delimiter-precedes-last="never"
+                    delimiter-precedes-et-al="never"
+                    et-al-min="4"
+                    et-al-use-first="1"
+                    form="short"
+                    initialize="false"/>
+            </names>
+          </group>
+          <group delimiter=" ">
+            <text value="trans."/>
+            <names variable="translator">
+              <name and="text"
+                    delimiter=", "
+                    delimiter-precedes-last="never"
+                    delimiter-precedes-et-al="never"
+                    et-al-min="4"
+                    et-al-use-first="1"
+                    form="short"
+                    initialize="false"/>
+            </names>
+          </group>
+        </group>
+      </else-if>
+    </choose>
+  </macro>
+
+  <!-- Arabic notes label page references ص (ص ٧٤–٨٣). A locator that already names a volume or
+       chapter ("ج 2، ص 750–753", labelled volume or chapter) is printed as it stands. -->
+  <macro name="locator-ar">
+    <choose>
+      <if locator="page">
+        <group delimiter=" ">
+          <label variable="locator" form="short"/>
+          <text variable="locator"/>
+        </group>
+      </if>
+      <else>
+        <text variable="locator"/>
+      </else>
+    </choose>
+  </macro>
+
+  <macro name="note-ar">
+    <choose>
+      <if type="classic" variable="citation-label" match="all">
+        <text macro="quran-note-ar"/>
+      </if>
+      <else-if type="manuscript">
+        <group delimiter="، ">
+          <text variable="archive"/>
+          <group delimiter=" ">
+            <text value="رقم الحفظ"/>
+            <!-- Word gives the space before a Latin shelf mark to the Latin run and shows it on the wrong side
+                 (رقم الحفظArabe 3448 ،). An RLM right after that space keeps it in the Arabic run; LRM
+                 then opens and closes the Latin shelf mark. Verified in Word's own rendering, 24 Sep 2026. -->
+            <text variable="archive_location" prefix="&#x200F;&#x200E;" suffix="&#x200E;"/>
+          </group>
+          <group delimiter=" ">
+            <!-- ق (ورقة) serves one folio and a range alike: ق ٥و، ق 128ظ–133ظ. -->
+            <text term="folio" form="short"/>
+            <text variable="locator"/>
+          </group>
+        </group>
+      </else-if>
+      <else>
+        <group delimiter="، ">
+          <text macro="creator-note-ar"/>
+          <group delimiter=" ">
+            <text macro="title-note-ar"/>
+            <text macro="note-edition-ar"/>
+          </group>
+          <choose>
+            <if type="book collection classic" variable="volume" match="all">
+              <group delimiter="، ">
+                <text variable="volume" prefix="ج "/>
+                <text macro="locator-ar"/>
+              </group>
+            </if>
+            <else>
+              <text macro="locator-ar"/>
+            </else>
+          </choose>
+        </group>
+      </else>
+    </choose>
+  </macro>
+
+  <macro name="note-en">
+    <choose>
+      <if type="classic" variable="citation-label" match="all">
+        <text macro="quran-note-en"/>
+      </if>
+      <else-if type="manuscript">
+        <group delimiter=", ">
+          <group delimiter=" ">
+            <text value="MS"/>
+            <text variable="archive_location"/>
+          </group>
+          <text variable="locator"/>
+        </group>
+      </else-if>
+      <else>
+        <group delimiter=", ">
+          <text macro="creator-note-en"/>
+          <group delimiter=" ">
+            <text macro="title-note-en"/>
+            <text macro="note-edition-en"/>
+          </group>
+          <choose>
+            <if type="book collection classic" variable="volume" match="all">
+              <text variable="volume"/>
+            </if>
+          </choose>
+          <text variable="locator"/>
+        </group>
+      </else>
+    </choose>
+  </macro>
+
+  <!-- Arabic bibliography source types -->
+  <macro name="bib-manuscript-ar">
+    <group delimiter="، ">
+      <text variable="archive-place"/>
+      <text variable="archive"/>
+      <text variable="collection-title"/>
+      <group delimiter=" ">
+        <text value="رقم الحفظ"/>
+        <text variable="archive_location" prefix="&#x200F;&#x200E;" suffix="&#x200E;"/>
+      </group>
+      <text variable="title" prefix="(" suffix=")" font-weight="bold"/>
+    </group>
+  </macro>
+
+  <macro name="bib-book-ar">
+    <group delimiter=". ">
+      <text macro="creator-bib-ar"/>
+      <text macro="year-ar" prefix="(" suffix=")"/>
+      <group delimiter=" ">
+        <text macro="title-book-ar"/>
+        <text macro="edition-volume-ar"/>
+      </group>
+      <choose>
+        <if variable="author">
+          <text macro="contributors-book-ar"/>
+        </if>
+      </choose>
+      <text macro="publisher-ar"/>
+      <choose>
+        <if variable="original-date">
+          <group delimiter=" ">
+            <text value="(تاريخ النشر في اللغة الأصل:"/>
+            <text macro="original-date-ar" suffix=")"/>
+          </group>
+        </if>
+      </choose>
+      <text macro="doi-url-ar"/>
+    </group>
+  </macro>
+
+  <macro name="bib-thesis-ar">
+    <group delimiter=". ">
+      <text macro="creator-bib-ar"/>
+      <text macro="year-ar" prefix="(" suffix=")"/>
+      <group delimiter=" ">
+        <text macro="title-book-ar"/>
+        <text variable="genre" prefix="(" suffix=")"/>
+      </group>
+      <group delimiter="، ">
+        <text variable="publisher"/>
+        <text variable="publisher-place"/>
+      </group>
+      <text macro="doi-url-ar"/>
+    </group>
+  </macro>
+
+  <macro name="bib-article-journal-ar">
+    <group delimiter=". ">
+      <text macro="creator-bib-ar"/>
+      <text macro="year-ar" prefix="(" suffix=")"/>
+      <text macro="title-dependent-ar"/>
+      <group delimiter="، ">
+        <text variable="container-title" font-weight="bold"/>
+        <group delimiter="">
+          <text variable="volume"/>
+          <text variable="issue" prefix="(" suffix=")"/>
+        </group>
+        <text macro="pages-ar" prefix="ص "/>
+      </group>
+      <text macro="doi-url-ar"/>
+    </group>
+  </macro>
+
+  <macro name="bib-article-periodical-ar">
+    <group delimiter=". ">
+      <text macro="creator-bib-ar"/>
+      <text macro="date-full-ar" prefix="(" suffix=")"/>
+      <text macro="title-dependent-ar"/>
+      <group delimiter="، ">
+        <text variable="container-title" font-weight="bold"/>
+        <text variable="issue" prefix="(" suffix=")"/>
+        <text macro="pages-ar" prefix="ص "/>
+      </group>
+      <text macro="doi-url-ar"/>
+    </group>
+  </macro>
+
+  <macro name="bib-chapter-ar">
+    <group delimiter=". ">
+      <text macro="creator-bib-ar"/>
+      <text macro="year-ar" prefix="(" suffix=")"/>
+      <text macro="title-chapter-ar"/>
+      <group delimiter="، ">
+        <group delimiter=" ">
+          <text value="ضمن كتاب"/>
+          <text variable="container-title" font-weight="bold"/>
+        </group>
+        <choose>
+          <if variable="container-author">
+            <group delimiter=" ">
+              <text value="تأليف"/>
+              <text macro="names-container-author-ar"/>
+            </group>
+          </if>
+        </choose>
+        <choose>
+          <if variable="editor">
+            <group delimiter=" ">
+              <text value="تحرير"/>
+              <text macro="names-editor-ar"/>
+            </group>
+          </if>
+        </choose>
+        <text macro="publisher-ar"/>
+        <text macro="pages-ar" prefix="ص "/>
+      </group>
+      <text macro="doi-url-ar"/>
+    </group>
+  </macro>
+
+  <macro name="bib-webpage-ar">
+    <group delimiter=". ">
+      <text macro="creator-bib-ar"/>
+      <text macro="date-full-ar" prefix="(" suffix=")"/>
+      <text macro="title-dependent-ar"/>
+      <group delimiter=": ">
+        <text variable="container-title" font-weight="bold"/>
+        <choose>
+          <if variable="genre">
+            <text variable="genre"/>
+          </if>
+          <else>
+            <text value="موقع إلكتروني"/>
+          </else>
+        </choose>
+      </group>
+      <choose>
+        <if variable="accessed URL" match="all">
+          <group delimiter="، ">
+            <group delimiter=" ">
+              <text value="تم تصفح المقال في تاريخ"/>
+              <text macro="date-accessed-ar"/>
+            </group>
+            <group delimiter=" ">
+              <text value="من:"/>
+              <text variable="URL" prefix="&#x200E;" suffix="&#x200E;"/>
+            </group>
+          </group>
+        </if>
+        <else>
+          <text macro="doi-url-ar"/>
+        </else>
+      </choose>
+    </group>
+  </macro>
+
+  <macro name="bibliography-ar">
+    <choose>
+      <if type="manuscript">
+        <text macro="bib-manuscript-ar"/>
+      </if>
+      <else-if type="article-journal">
+        <text macro="bib-article-journal-ar"/>
+      </else-if>
+      <else-if type="article-magazine article-newspaper" match="any">
+        <text macro="bib-article-periodical-ar"/>
+      </else-if>
+      <else-if type="chapter entry entry-dictionary entry-encyclopedia" match="any">
+        <text macro="bib-chapter-ar"/>
+      </else-if>
+      <else-if type="webpage post-weblog" match="any">
+        <text macro="bib-webpage-ar"/>
+      </else-if>
+      <else-if type="thesis">
+        <text macro="bib-thesis-ar"/>
+      </else-if>
+      <else>
+        <text macro="bib-book-ar"/>
+      </else>
+    </choose>
+  </macro>
+
+  <!-- Latin bibliography source types -->
+  <macro name="bib-manuscript-en">
+    <group delimiter=", ">
+      <text variable="archive-place"/>
+      <text variable="archive" font-style="italic"/>
+      <group delimiter=" ">
+        <text value="MS"/>
+        <text variable="archive_location"/>
+        <text variable="title" prefix="(" suffix=")" font-style="italic"/>
+      </group>
+    </group>
+  </macro>
+
+  <macro name="bib-book-en">
+    <group delimiter=". ">
+      <text macro="creator-bib-en"/>
+      <group delimiter=", ">
+        <text macro="title-book-en"/>
+        <choose>
+          <if variable="author">
+            <text macro="contributors-book-en"/>
+          </if>
+        </choose>
+        <text macro="edition-volume-en"/>
+      </group>
+      <text variable="collection-title"/>
+      <group delimiter=", ">
+        <text macro="publisher-en"/>
+        <text macro="year-en"/>
+      </group>
+      <text macro="doi-url-en"/>
+    </group>
+  </macro>
+
+  <macro name="bib-thesis-en">
+    <group delimiter=". ">
+      <text macro="creator-bib-en"/>
+      <text macro="title-article-en"/>
+      <group delimiter=", ">
+        <text variable="genre"/>
+        <text variable="publisher"/>
+        <text macro="year-en"/>
+      </group>
+      <choose>
+        <if variable="accessed">
+          <group delimiter=" ">
+            <text value="Accessed"/>
+            <text macro="date-accessed-en"/>
+          </group>
+        </if>
+      </choose>
+      <text macro="doi-url-en"/>
+    </group>
+  </macro>
+
+  <macro name="bib-article-journal-en">
+    <group delimiter=". ">
+      <text macro="creator-bib-en"/>
+      <text macro="title-article-en"/>
+      <group delimiter=" ">
+        <text variable="container-title" font-style="italic"/>
+        <group delimiter="/">
+          <text variable="volume"/>
+          <text variable="issue"/>
+        </group>
+        <text macro="year-en" prefix="(" suffix="):"/>
+        <text variable="page"/>
+      </group>
+      <text macro="doi-url-en"/>
+    </group>
+  </macro>
+
+  <macro name="bib-article-periodical-en">
+    <group delimiter=". ">
+      <text macro="creator-bib-en"/>
+      <text macro="title-article-en"/>
+      <group>
+        <group delimiter=", ">
+          <group delimiter=" ">
+            <text variable="container-title" font-style="italic"/>
+            <group delimiter="/">
+              <text variable="volume"/>
+              <text variable="issue"/>
+            </group>
+          </group>
+          <text macro="date-periodical-en"/>
+        </group>
+        <text variable="page" prefix=": "/>
+      </group>
+      <text macro="doi-url-en"/>
+    </group>
+  </macro>
+
+  <macro name="bib-chapter-en">
+    <group delimiter=". ">
+      <text macro="creator-bib-en"/>
+      <text macro="title-chapter-en"/>
+      <group delimiter=", ">
+        <group delimiter=" ">
+          <text value="In"/>
+          <text variable="container-title" font-style="italic"/>
+        </group>
+        <choose>
+          <if variable="editor">
+            <group delimiter=" ">
+              <text value="ed."/>
+              <text macro="names-editor-en"/>
+            </group>
+          </if>
+        </choose>
+        <text variable="collection-title"/>
+      </group>
+      <group>
+        <group delimiter=", ">
+          <text macro="publisher-en"/>
+          <text macro="year-en"/>
+        </group>
+        <choose>
+          <if variable="genre">
+            <text variable="page" prefix=", "/>
+          </if>
+          <else>
+            <text variable="page" prefix=": "/>
+          </else>
+        </choose>
+      </group>
+      <text macro="doi-url-en"/>
+    </group>
+  </macro>
+
+  <macro name="bib-webpage-en">
+    <group delimiter=". ">
+      <text macro="creator-bib-en"/>
+      <text macro="title-article-en"/>
+      <group delimiter=", ">
+        <group delimiter=" ">
+          <text variable="container-title" font-style="italic"/>
+          <group delimiter="/">
+            <text variable="volume"/>
+            <text variable="issue"/>
+          </group>
+        </group>
+        <text macro="date-periodical-en"/>
+        <text variable="genre"/>
+      </group>
+      <choose>
+        <if variable="accessed">
+          <group delimiter=" ">
+            <text value="Accessed"/>
+            <text macro="date-accessed-en"/>
+          </group>
+        </if>
+      </choose>
+      <text macro="doi-url-en"/>
+    </group>
+  </macro>
+
+  <macro name="bibliography-en">
+    <choose>
+      <if type="manuscript">
+        <text macro="bib-manuscript-en"/>
+      </if>
+      <else-if type="article-journal">
+        <text macro="bib-article-journal-en"/>
+      </else-if>
+      <else-if type="article-magazine article-newspaper" match="any">
+        <text macro="bib-article-periodical-en"/>
+      </else-if>
+      <else-if type="chapter entry entry-dictionary entry-encyclopedia" match="any">
+        <text macro="bib-chapter-en"/>
+      </else-if>
+      <else-if type="webpage post-weblog" match="any">
+        <text macro="bib-webpage-en"/>
+      </else-if>
+      <else-if type="thesis">
+        <text macro="bib-thesis-en"/>
+      </else-if>
+      <else>
+        <text macro="bib-book-en"/>
+      </else>
+    </choose>
+  </macro>
+
+  <!-- Two different people with one surname (ʿAlī and ʿAbd al-Qāhir al-Jurjānī) get their given
+       names in every note that cites them; everyone else keeps the short form. -->
+  <citation disambiguate-add-givenname="true" givenname-disambiguation-rule="primary-name">
+    <!-- Locale-specific layouts are a Zotero/citeproc-js extension. -->
+    <layout locale="ar-Arab" delimiter="؛ ">
+      <text macro="note-ar"/>
+    </layout>
+    <layout delimiter="; ">
+      <text macro="note-en" prefix="&#x200E;" suffix="&#x200E;"/>
+    </layout>
+  </citation>
+
+  <bibliography exclude-with-fields="kalimat-quran" hanging-indent="true" entry-spacing="1" line-spacing="1">
+    <sort>
+      <key macro="sort-creator"/>
+      <key variable="issued" sort="descending"/>
+      <key variable="title"/>
+    </sort>
+    <!-- Locale-specific layouts are a Zotero/citeproc-js extension. -->
+    <layout locale="ar-Arab">
+      <choose>
+        <if variable="DOI URL" match="any">
+          <text macro="bibliography-ar"/>
+        </if>
+        <else>
+          <text macro="bibliography-ar" suffix="."/>
+        </else>
+      </choose>
+    </layout>
+    <layout>
+      <choose>
+        <if variable="DOI URL" match="any">
+          <text macro="bibliography-en"/>
+        </if>
+        <else>
+          <text macro="bibliography-en" suffix="."/>
+        </else>
+      </choose>
+    </layout>
+  </bibliography>
+</style>
