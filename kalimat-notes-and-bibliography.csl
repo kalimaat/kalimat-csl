@@ -9,14 +9,14 @@
     <title>kalimat Notes and Bibliography</title>
     <title-short>kalimat</title-short>
     <id>http://www.zotero.org/styles/kalimat-notes-and-bibliography</id>
-    <link href="http://www.zotero.org/styles/kalimat-notes-and-bibliography" rel="self"/>
+    <link href="https://raw.githubusercontent.com/kalimaat/kalimat-csl/main/kalimat-notes-and-bibliography.csl" rel="self"/>
     <link href="http://www.zotero.org/styles/chicago-shortened-notes-bibliography" rel="template"/>
     <author>
       <name>Kalimat Editorial Team</name>
     </author>
     <category citation-format="note"/>
     <category field="literature"/>
-    <summary>KALiMaT short notes and bibliography for mixed Arabic- and Latin-script sources. Version 1.0.3.</summary>
+    <summary>KALiMaT short notes and bibliography for mixed Arabic- and Latin-script sources. Version 1.0.4.</summary>
     <updated>2026-10-01T00:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/4.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</rights>
   </info>
@@ -89,6 +89,9 @@
           <date-part name="year"/>
         </date>
       </if>
+      <else-if variable="status">
+        <text variable="status"/>
+      </else-if>
       <else>
         <text term="no date"/>
       </else>
@@ -430,15 +433,25 @@
   </macro>
 
   <macro name="edition-volume-en">
-    <group delimiter=", ">
+    <group delimiter=". ">
       <group delimiter=" ">
         <number variable="edition" form="ordinal"/>
         <text value="ed."/>
       </group>
-      <group delimiter=" ">
-        <text value="vol."/>
-        <text variable="volume"/>
-      </group>
+      <choose>
+        <if variable="volume">
+          <group delimiter=" ">
+            <text value="Vol."/>
+            <text variable="volume"/>
+          </group>
+        </if>
+        <else-if variable="number-of-volumes">
+          <group delimiter=" ">
+            <text variable="number-of-volumes"/>
+            <text value="vols."/>
+          </group>
+        </else-if>
+      </choose>
     </group>
   </macro>
 
@@ -949,8 +962,8 @@
             <text macro="contributors-book-en"/>
           </if>
         </choose>
-        <text macro="edition-volume-en"/>
       </group>
+      <text macro="edition-volume-en"/>
       <text variable="collection-title"/>
       <group delimiter=", ">
         <text macro="publisher-en"/>
@@ -1176,9 +1189,12 @@
     <!-- Locale-specific layouts are a Zotero/citeproc-js extension. -->
     <layout locale="ar-Arab">
       <choose>
-        <if variable="DOI URL" match="any">
-          <text macro="bibliography-ar"/>
+        <if type="manuscript">
+          <text macro="bibliography-ar" suffix="."/>
         </if>
+        <else-if variable="DOI URL" match="any">
+          <text macro="bibliography-ar"/>
+        </else-if>
         <else>
           <text macro="bibliography-ar" suffix="."/>
         </else>
@@ -1186,9 +1202,12 @@
     </layout>
     <layout>
       <choose>
-        <if variable="DOI URL" match="any">
-          <text macro="bibliography-en"/>
+        <if type="manuscript">
+          <text macro="bibliography-en" suffix="."/>
         </if>
+        <else-if variable="DOI URL" match="any">
+          <text macro="bibliography-en"/>
+        </else-if>
         <else>
           <text macro="bibliography-en" suffix="."/>
         </else>

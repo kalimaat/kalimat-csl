@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.4 (2026-10-01)
+
+- **Manuscripts end with a full stop** even when the record has a URL (manuscript URLs are not printed).
+- **Edition and volumes as in Chicago** (Latin script): `Title. 2nd ed. Place…` instead of `Title, 2nd ed.`; `Vol. 3`; and the number of volumes when no single volume is cited: `The Arabian Nights Encyclopedia. 2 vols. Santa Barbara…`. Arabic entries are unchanged.
+- **Forthcoming in Arabic:** with Extra `status: قيد النشر` and no date, the date position reads `(قيد النشر)`.
+- The style's `self` link now points to its published address on GitHub.
+
 ## 1.0.3 (2026-10-01)
 
 - **First editions.** A book cited in a later edition gives its first edition in one entry: enter Extra `original-date:` (and, if different, `original-publisher-place:` and `original-publisher:`). Arabic: `(الطبعة الأولى: بغداد: دار الرشيد، ١٩٧٩).` Latin script: `First published Baghdad: Dār al-Rashīd, 1979.` A translated book keeps `(تاريخ النشر في اللغة الأصل: …)` in Arabic.
