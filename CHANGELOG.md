@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.0 (2026-10-01)
+
+- **Serial comma in name lists, as in Chicago.** Bibliography: a comma after the inverted first name (`Gruendler, Beatrice, and Isabel Toral`) and before "and" in lists of three or more (`Conybeare, F. C., J. R. Harris, and A. S. Lewis`). Notes and editor/translator lists: a comma before "and" from three names up (`Conybeare, Harris, and Lewis`; two names stay `Gruendler and Toral`). Arabic lists are unchanged.
+
 ## 1.0.0 (2026-09-24)
 
 First published version of the kalimat citation style.

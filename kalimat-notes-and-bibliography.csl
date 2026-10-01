@@ -16,8 +16,8 @@
     </author>
     <category citation-format="note"/>
     <category field="literature"/>
-    <summary>KALiMaT short notes and bibliography for mixed Arabic- and Latin-script sources. Version 1.0.0.</summary>
-    <updated>2026-09-24T00:00:00+00:00</updated>
+    <summary>KALiMaT short notes and bibliography for mixed Arabic- and Latin-script sources. Version 1.1.0.</summary>
+    <updated>2026-10-01T00:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/4.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</rights>
   </info>
 
@@ -245,7 +245,7 @@
     <names variable="author">
       <name and="text"
             delimiter=", "
-            delimiter-precedes-last="never"
+            delimiter-precedes-last="contextual"
             delimiter-precedes-et-al="never"
             et-al-min="4"
             et-al-use-first="1"
@@ -255,7 +255,7 @@
         <names variable="editor">
           <name and="text"
                 delimiter=", "
-                delimiter-precedes-last="never"
+                delimiter-precedes-last="contextual"
                 delimiter-precedes-et-al="never"
                 et-al-min="4"
                 et-al-use-first="1"
@@ -272,7 +272,7 @@
         <names variable="author">
           <name and="text"
                 delimiter=", "
-                delimiter-precedes-last="never"
+                delimiter-precedes-last="always"
                 delimiter-precedes-et-al="always"
                 et-al-min="4"
                 et-al-use-first="3"
@@ -285,7 +285,7 @@
         <names variable="editor">
           <name and="text"
                 delimiter=", "
-                delimiter-precedes-last="never"
+                delimiter-precedes-last="always"
                 delimiter-precedes-et-al="always"
                 et-al-min="4"
                 et-al-use-first="3"
@@ -302,7 +302,7 @@
     <names variable="editor">
       <name and="text"
             delimiter=", "
-            delimiter-precedes-last="never"
+            delimiter-precedes-last="contextual"
             delimiter-precedes-et-al="always"
             et-al-min="4"
             et-al-use-first="3"
@@ -314,7 +314,7 @@
     <names variable="translator">
       <name and="text"
             delimiter=", "
-            delimiter-precedes-last="never"
+            delimiter-precedes-last="contextual"
             delimiter-precedes-et-al="always"
             et-al-min="4"
             et-al-use-first="3"
@@ -466,7 +466,7 @@
         <group delimiter=" ">
           <text value="ed. and trans."/>
           <names variable="editor-translator">
-            <name and="text" delimiter=", " delimiter-precedes-last="never" initialize="false"/>
+            <name and="text" delimiter=", " delimiter-precedes-last="contextual" initialize="false"/>
           </names>
         </group>
       </if>
@@ -594,7 +594,7 @@
           <names variable="editor-translator">
             <name and="text"
                   delimiter=", "
-                  delimiter-precedes-last="never"
+                  delimiter-precedes-last="contextual"
                   delimiter-precedes-et-al="never"
                   et-al-min="4"
                   et-al-use-first="1"
@@ -610,7 +610,7 @@
             <names variable="editor">
               <name and="text"
                     delimiter=", "
-                    delimiter-precedes-last="never"
+                    delimiter-precedes-last="contextual"
                     delimiter-precedes-et-al="never"
                     et-al-min="4"
                     et-al-use-first="1"
@@ -623,7 +623,7 @@
             <names variable="translator">
               <name and="text"
                     delimiter=", "
-                    delimiter-precedes-last="never"
+                    delimiter-precedes-last="contextual"
                     delimiter-precedes-et-al="never"
                     et-al-min="4"
                     et-al-use-first="1"
