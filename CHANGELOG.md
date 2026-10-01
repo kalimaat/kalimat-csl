@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2 (2026-10-01)
+
+- **Forthcoming works.** Enter Extra `status: forthcoming` and leave the date empty. Without a publisher or journal the status follows in parentheses (`In Title, ed. Neguin Yavari (forthcoming).`; `“Title.” (forthcoming).`), after a journal it replaces the year (`Journal (forthcoming).`), and after a publisher it takes the year's place (`Leiden: Brill, forthcoming.`).
+
 ## 1.0.1 (2026-10-01)
 
 - **Serial comma in name lists, as in Chicago.** Bibliography: a comma after the inverted first name (`Gruendler, Beatrice, and Isabel Toral`) and before "and" in lists of three or more (`Conybeare, F. C., J. R. Harris, and A. S. Lewis`). Notes and editor/translator lists: a comma before "and" from three names up (`Conybeare, Harris, and Lewis`; two names stay `Gruendler and Toral`). Arabic lists are unchanged.

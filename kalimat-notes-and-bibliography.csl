@@ -16,7 +16,7 @@
     </author>
     <category citation-format="note"/>
     <category field="literature"/>
-    <summary>KALiMaT short notes and bibliography for mixed Arabic- and Latin-script sources. Version 1.0.1.</summary>
+    <summary>KALiMaT short notes and bibliography for mixed Arabic- and Latin-script sources. Version 1.0.2.</summary>
     <updated>2026-10-01T00:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/4.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</rights>
   </info>
@@ -102,6 +102,9 @@
           <date-part name="year"/>
         </date>
       </if>
+      <else-if variable="status">
+        <text variable="status"/>
+      </else-if>
       <else>
         <text term="no date"/>
       </else>
@@ -976,8 +979,19 @@
           <text variable="volume"/>
           <text variable="issue"/>
         </group>
-        <text macro="year-en" prefix="(" suffix="):"/>
-        <text variable="page"/>
+        <choose>
+          <if variable="issued">
+            <text macro="year-en" prefix="(" suffix="):"/>
+            <text variable="page"/>
+          </if>
+          <else-if variable="status">
+            <text variable="status" prefix="(" suffix=")"/>
+          </else-if>
+          <else>
+            <text macro="year-en" prefix="(" suffix="):"/>
+            <text variable="page"/>
+          </else>
+        </choose>
       </group>
       <text macro="doi-url-en"/>
     </group>
@@ -1004,39 +1018,58 @@
     </group>
   </macro>
 
+  <macro name="chapter-imprint-en">
+    <group>
+      <group delimiter=", ">
+        <text macro="publisher-en"/>
+        <text macro="year-en"/>
+      </group>
+      <choose>
+        <if variable="genre">
+          <text variable="page" prefix=", "/>
+        </if>
+        <else>
+          <text variable="page" prefix=": "/>
+        </else>
+      </choose>
+    </group>
+  </macro>
+
   <macro name="bib-chapter-en">
     <group delimiter=". ">
       <text macro="creator-bib-en"/>
       <text macro="title-chapter-en"/>
-      <group delimiter=", ">
-        <group delimiter=" ">
-          <text value="In"/>
-          <text variable="container-title" font-style="italic"/>
-        </group>
-        <choose>
-          <if variable="editor">
-            <group delimiter=" ">
-              <text value="ed."/>
-              <text macro="names-editor-en"/>
-            </group>
-          </if>
-        </choose>
-        <text variable="collection-title"/>
-      </group>
-      <group>
+      <group delimiter=" ">
         <group delimiter=", ">
-          <text macro="publisher-en"/>
-          <text macro="year-en"/>
-        </group>
-        <choose>
-          <if variable="genre">
-            <text variable="page" prefix=", "/>
-          </if>
-          <else>
-            <text variable="page" prefix=": "/>
-          </else>
-        </choose>
+          <group delimiter=" ">
+            <text value="In"/>
+            <text variable="container-title" font-style="italic"/>
+          </group>
+          <choose>
+            <if variable="editor">
+              <group delimiter=" ">
+                <text value="ed."/>
+                <text macro="names-editor-en"/>
+              </group>
+            </if>
+          </choose>
+          <text variable="collection-title"/>
       </group>
+      <choose>
+        <if variable="issued publisher" match="none">
+          <text variable="status" prefix="(" suffix=")"/>
+        </if>
+      </choose>
+      </group>
+      <choose>
+        <if variable="issued publisher" match="any">
+          <text macro="chapter-imprint-en"/>
+        </if>
+        <else-if variable="status"/>
+        <else>
+          <text macro="chapter-imprint-en"/>
+        </else>
+      </choose>
       <text macro="doi-url-en"/>
     </group>
   </macro>
