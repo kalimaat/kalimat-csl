@@ -16,7 +16,7 @@
     </author>
     <category citation-format="note"/>
     <category field="literature"/>
-    <summary>KALiMaT short notes and bibliography for mixed Arabic- and Latin-script sources. Version 1.0.2.</summary>
+    <summary>KALiMaT short notes and bibliography for mixed Arabic- and Latin-script sources. Version 1.0.3.</summary>
     <updated>2026-10-01T00:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/4.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</rights>
   </info>
@@ -761,12 +761,24 @@
       </choose>
       <text macro="publisher-ar"/>
       <choose>
-        <if variable="original-date">
+        <if variable="original-date translator" match="all">
           <group delimiter=" ">
             <text value="(تاريخ النشر في اللغة الأصل:"/>
             <text macro="original-date-ar" suffix=")"/>
           </group>
         </if>
+        <else-if variable="original-date">
+          <group delimiter=" " prefix="(" suffix=")">
+            <text value="الطبعة الأولى:"/>
+            <group delimiter="، ">
+              <group delimiter=": ">
+                <text variable="original-publisher-place"/>
+                <text variable="original-publisher"/>
+              </group>
+              <text macro="original-date-ar"/>
+            </group>
+          </group>
+        </else-if>
       </choose>
       <text macro="doi-url-ar"/>
     </group>
@@ -944,6 +956,22 @@
         <text macro="publisher-en"/>
         <text macro="year-en"/>
       </group>
+      <choose>
+        <if variable="translator" match="none">
+          <group delimiter=" ">
+            <text value="First published"/>
+            <group delimiter=", ">
+              <group delimiter=": ">
+                <text variable="original-publisher-place"/>
+                <text variable="original-publisher"/>
+              </group>
+              <date variable="original-date">
+                <date-part name="year"/>
+              </date>
+            </group>
+          </group>
+        </if>
+      </choose>
       <text macro="doi-url-en"/>
     </group>
   </macro>

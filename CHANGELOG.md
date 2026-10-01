@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.3 (2026-10-01)
+
+- **First editions.** A book cited in a later edition gives its first edition in one entry: enter Extra `original-date:` (and, if different, `original-publisher-place:` and `original-publisher:`). Arabic: `(الطبعة الأولى: بغداد: دار الرشيد، ١٩٧٩).` Latin script: `First published Baghdad: Dār al-Rashīd, 1979.` A translated book keeps `(تاريخ النشر في اللغة الأصل: …)` in Arabic.
+
 ## 1.0.2 (2026-10-01)
 
 - **Forthcoming works.** Enter Extra `status: forthcoming` and leave the date empty. Without a publisher or journal the status follows in parentheses (`In Title, ed. Neguin Yavari (forthcoming).`; `“Title.” (forthcoming).`), after a journal it replaces the year (`Journal (forthcoming).`), and after a publisher it takes the year's place (`Leiden: Brill, forthcoming.`).
