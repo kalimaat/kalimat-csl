@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.0 (2026-11-04)
+
+- **Historical texts inside a book.** A Book Section with Extra `type: classic` keeps the chapter form in the bibliography (quoted title, `In` + book title, pages) instead of turning into a book entry; its note quotes the short title: `al-Muḥāsibī, “Fahm al-Qurʾān” (ed. and trans. Metzler), 30`.
+- **Same editor and translator print once.** When one person fills both Zotero's Editor and Translator fields, entries and notes read `ed. and trans. Berenike Metzler` / `تحقيق وترجمة عبد السلام هارون` instead of naming them twice.
+- **Translators in chapter entries.** Book sections now name the translator after the editor (`ed. X, trans. Y`; Arabic `تحرير X، ترجمة Y`).
+
 ## 1.0.4 (2026-10-01)
 
 - **Manuscripts end with a full stop** even when the record has a URL (manuscript URLs are not printed).

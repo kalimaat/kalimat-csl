@@ -16,8 +16,8 @@
     </author>
     <category citation-format="note"/>
     <category field="literature"/>
-    <summary>KALiMaT short notes and bibliography for mixed Arabic- and Latin-script sources. Version 1.0.4.</summary>
-    <updated>2026-10-01T00:00:00+00:00</updated>
+    <summary>KALiMaT short notes and bibliography for mixed Arabic- and Latin-script sources. Version 1.1.0.</summary>
+    <updated>2026-11-04T00:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/4.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</rights>
   </info>
 
@@ -25,6 +25,13 @@
     Zotero/citeproc-js uses the BCP 47 language value to select the script
     branch. Use ar-Arab for Arabic script and ar-Latn for transliteration.
   -->
+  <!-- citeproc-js labels an identical editor and translator once with the
+       editortranslator term; see the names-editor-translator macros. -->
+  <locale xml:lang="en">
+    <terms>
+      <term name="editortranslator" form="verb-short">ed. and trans.</term>
+    </terms>
+  </locale>
   <locale xml:lang="ar">
     <style-options punctuation-in-quote="false"/>
     <terms>
@@ -43,6 +50,7 @@
       <term name="editor" form="verb-short">تحرير</term>
       <term name="translator" form="verb">ترجمة</term>
       <term name="translator" form="verb-short">ترجمة</term>
+      <term name="editortranslator" form="verb-short">تحقيق وترجمة</term>
       <term name="month-01">يناير</term>
       <term name="month-02">فبراير</term>
       <term name="month-03">مارس</term>
@@ -328,12 +336,43 @@
     </names>
   </macro>
 
+  <!-- Zotero has no editor-translator creator role. When the Editor and Translator fields hold the
+       same people, citeproc-js's require-match renders them once with the editortranslator term
+       ("ed. and trans."); otherwise it falls back to the substitute. -->
+  <macro name="names-editor-translator-en">
+    <names variable="editor translator" require-match="true">
+      <label form="verb-short" suffix=" "/>
+      <name and="text"
+            delimiter=", "
+            delimiter-precedes-last="contextual"
+            delimiter-precedes-et-al="always"
+            et-al-min="4"
+            et-al-use-first="3"
+            initialize="false"/>
+      <substitute>
+        <group delimiter=", ">
+          <group delimiter=" ">
+            <text value="ed."/>
+            <text macro="names-editor-en"/>
+          </group>
+          <group delimiter=" ">
+            <text value="trans."/>
+            <text macro="names-translator-en"/>
+          </group>
+        </group>
+      </substitute>
+    </names>
+  </macro>
+
   <!-- Titles -->
   <macro name="title-note-ar">
     <choose>
       <if type="article-journal article-magazine article-newspaper chapter entry entry-dictionary entry-encyclopedia webpage post-weblog" match="any">
         <text variable="title" form="short" prefix="«" suffix="»"/>
       </if>
+      <else-if type="classic" variable="container-title" match="all">
+        <text variable="title" form="short" prefix="«" suffix="»"/>
+      </else-if>
       <else>
         <text variable="title" form="short" font-weight="bold"/>
       </else>
@@ -345,6 +384,9 @@
       <if type="article-journal article-magazine article-newspaper chapter entry entry-dictionary entry-encyclopedia thesis webpage post-weblog" match="any">
         <text variable="title" form="short" quotes="true"/>
       </if>
+      <else-if type="classic" variable="container-title" match="all">
+        <text variable="title" form="short" quotes="true"/>
+      </else-if>
       <else>
         <text variable="title" form="short" font-style="italic"/>
       </else>
@@ -456,24 +498,89 @@
   </macro>
 
   <macro name="contributors-book-ar">
-    <group delimiter=". ">
-      <choose>
-        <if variable="editor">
+    <choose>
+      <if variable="editor translator" match="all">
+        <names variable="editor translator" require-match="true">
+          <label form="verb-short" suffix=" "/>
+          <name delimiter="، و"
+                delimiter-precedes-et-al="always"
+                et-al-min="4"
+                et-al-use-first="3"
+                initialize="false"/>
+          <substitute>
+            <group delimiter=". ">
+              <group delimiter=" ">
+                <text value="تحقيق"/>
+                <text macro="names-editor-ar"/>
+              </group>
+              <group delimiter=" ">
+                <text value="ترجمة"/>
+                <text macro="names-translator-ar"/>
+              </group>
+            </group>
+          </substitute>
+        </names>
+      </if>
+      <else-if variable="editor">
+        <group delimiter=" ">
+          <text value="تحقيق"/>
+          <text macro="names-editor-ar"/>
+        </group>
+      </else-if>
+      <else-if variable="translator">
+        <group delimiter=" ">
+          <text value="ترجمة"/>
+          <text macro="names-translator-ar"/>
+        </group>
+      </else-if>
+    </choose>
+  </macro>
+
+  <!-- A modern volume's editor is محرر (تحرير); the editor of a historical text is its محقق (تحقيق). -->
+  <macro name="contributors-chapter-ar">
+    <choose>
+      <if type="classic" variable="editor translator" match="all">
+        <names variable="editor translator" require-match="true">
+          <label form="verb-short" suffix=" "/>
+          <name delimiter="، و"
+                delimiter-precedes-et-al="always"
+                et-al-min="4"
+                et-al-use-first="3"
+                initialize="false"/>
+          <substitute>
+            <group delimiter="، ">
+              <group delimiter=" ">
+                <text value="تحقيق"/>
+                <text macro="names-editor-ar"/>
+              </group>
+              <group delimiter=" ">
+                <text value="ترجمة"/>
+                <text macro="names-translator-ar"/>
+              </group>
+            </group>
+          </substitute>
+        </names>
+      </if>
+      <else>
+        <group delimiter="، ">
           <group delimiter=" ">
-            <text value="تحقيق"/>
+            <choose>
+              <if type="classic">
+                <text value="تحقيق"/>
+              </if>
+              <else>
+                <text value="تحرير"/>
+              </else>
+            </choose>
             <text macro="names-editor-ar"/>
           </group>
-        </if>
-      </choose>
-      <choose>
-        <if variable="translator">
           <group delimiter=" ">
             <text value="ترجمة"/>
             <text macro="names-translator-ar"/>
           </group>
-        </if>
-      </choose>
-    </group>
+        </group>
+      </else>
+    </choose>
   </macro>
 
   <macro name="contributors-book-en">
@@ -487,16 +594,7 @@
         </group>
       </if>
       <else-if variable="editor translator" match="all">
-        <group delimiter=", ">
-          <group delimiter=" ">
-            <text value="ed."/>
-            <text macro="names-editor-en"/>
-          </group>
-          <group delimiter=" ">
-            <text value="trans."/>
-            <text macro="names-translator-en"/>
-          </group>
-        </group>
+        <text macro="names-editor-translator-en"/>
       </else-if>
       <else-if variable="editor">
         <group delimiter=" ">
@@ -562,32 +660,45 @@
       <else-if type="classic">
         <choose>
           <if variable="editor translator" match="any">
-            <group delimiter="، " prefix="(" suffix=")">
-              <group delimiter=" ">
-                <text value="تحقيق"/>
-                <names variable="editor">
-                  <name delimiter="، و"
-                        delimiter-precedes-et-al="never"
-                        et-al-min="4"
-                        et-al-use-first="1"
-                        form="short"
-                        initialize="false"/>
-                  <et-al term="and others"/>
-                </names>
-              </group>
-              <group delimiter=" ">
-                <text value="ترجمة"/>
-                <names variable="translator">
-                  <name delimiter="، و"
-                        delimiter-precedes-et-al="never"
-                        et-al-min="4"
-                        et-al-use-first="1"
-                        form="short"
-                        initialize="false"/>
-                  <et-al term="and others"/>
-                </names>
-              </group>
-            </group>
+            <!-- An identical editor and translator print once: "(تحقيق وترجمة هارون)". -->
+            <names variable="editor translator" require-match="true" prefix="(" suffix=")">
+              <label form="verb-short" suffix=" "/>
+              <name delimiter="، و"
+                    delimiter-precedes-et-al="never"
+                    et-al-min="4"
+                    et-al-use-first="1"
+                    form="short"
+                    initialize="false"/>
+              <et-al term="and others"/>
+              <substitute>
+                <group delimiter="، " prefix="(" suffix=")">
+                  <group delimiter=" ">
+                    <text value="تحقيق"/>
+                    <names variable="editor">
+                      <name delimiter="، و"
+                            delimiter-precedes-et-al="never"
+                            et-al-min="4"
+                            et-al-use-first="1"
+                            form="short"
+                            initialize="false"/>
+                      <et-al term="and others"/>
+                    </names>
+                  </group>
+                  <group delimiter=" ">
+                    <text value="ترجمة"/>
+                    <names variable="translator">
+                      <name delimiter="، و"
+                            delimiter-precedes-et-al="never"
+                            et-al-min="4"
+                            et-al-use-first="1"
+                            form="short"
+                            initialize="false"/>
+                      <et-al term="and others"/>
+                    </names>
+                  </group>
+                </group>
+              </substitute>
+            </names>
           </if>
           <else>
             <!-- Without an editor (a reprint, or an annotator recorded as a contributor), Arabic
@@ -620,34 +731,48 @@
         </group>
       </if>
       <else-if type="classic">
-        <group delimiter=", " prefix="(" suffix=")">
-          <group delimiter=" ">
-            <text value="ed."/>
-            <names variable="editor">
-              <name and="text"
-                    delimiter=", "
-                    delimiter-precedes-last="contextual"
-                    delimiter-precedes-et-al="never"
-                    et-al-min="4"
-                    et-al-use-first="1"
-                    form="short"
-                    initialize="false"/>
-            </names>
-          </group>
-          <group delimiter=" ">
-            <text value="trans."/>
-            <names variable="translator">
-              <name and="text"
-                    delimiter=", "
-                    delimiter-precedes-last="contextual"
-                    delimiter-precedes-et-al="never"
-                    et-al-min="4"
-                    et-al-use-first="1"
-                    form="short"
-                    initialize="false"/>
-            </names>
-          </group>
-        </group>
+        <!-- An identical editor and translator print once: "(ed. and trans. Metzler)". -->
+        <names variable="editor translator" require-match="true" prefix="(" suffix=")">
+          <label form="verb-short" suffix=" "/>
+          <name and="text"
+                delimiter=", "
+                delimiter-precedes-last="contextual"
+                delimiter-precedes-et-al="never"
+                et-al-min="4"
+                et-al-use-first="1"
+                form="short"
+                initialize="false"/>
+          <substitute>
+            <group delimiter=", " prefix="(" suffix=")">
+              <group delimiter=" ">
+                <text value="ed."/>
+                <names variable="editor">
+                  <name and="text"
+                        delimiter=", "
+                        delimiter-precedes-last="contextual"
+                        delimiter-precedes-et-al="never"
+                        et-al-min="4"
+                        et-al-use-first="1"
+                        form="short"
+                        initialize="false"/>
+                </names>
+              </group>
+              <group delimiter=" ">
+                <text value="trans."/>
+                <names variable="translator">
+                  <name and="text"
+                        delimiter=", "
+                        delimiter-precedes-last="contextual"
+                        delimiter-precedes-et-al="never"
+                        et-al-min="4"
+                        et-al-use-first="1"
+                        form="short"
+                        initialize="false"/>
+                </names>
+              </group>
+            </group>
+          </substitute>
+        </names>
       </else-if>
     </choose>
   </macro>
@@ -862,14 +987,7 @@
             </group>
           </if>
         </choose>
-        <choose>
-          <if variable="editor">
-            <group delimiter=" ">
-              <text value="تحرير"/>
-              <text macro="names-editor-ar"/>
-            </group>
-          </if>
-        </choose>
+        <text macro="contributors-chapter-ar"/>
         <text macro="publisher-ar"/>
         <text macro="pages-ar" prefix="ص "/>
       </group>
@@ -925,6 +1043,10 @@
         <text macro="bib-article-periodical-ar"/>
       </else-if>
       <else-if type="chapter entry entry-dictionary entry-encyclopedia" match="any">
+        <text macro="bib-chapter-ar"/>
+      </else-if>
+      <!-- A historical text published inside a book ("type: classic" on a book section). -->
+      <else-if type="classic" variable="container-title" match="all">
         <text macro="bib-chapter-ar"/>
       </else-if>
       <else-if type="webpage post-weblog" match="any">
@@ -1086,14 +1208,7 @@
             <text value="In"/>
             <text variable="container-title" font-style="italic"/>
           </group>
-          <choose>
-            <if variable="editor">
-              <group delimiter=" ">
-                <text value="ed."/>
-                <text macro="names-editor-en"/>
-              </group>
-            </if>
-          </choose>
+          <text macro="contributors-book-en"/>
           <text variable="collection-title"/>
       </group>
       <choose>
@@ -1154,6 +1269,10 @@
         <text macro="bib-article-periodical-en"/>
       </else-if>
       <else-if type="chapter entry entry-dictionary entry-encyclopedia" match="any">
+        <text macro="bib-chapter-en"/>
+      </else-if>
+      <!-- A historical text published inside a book ("type: classic" on a book section). -->
+      <else-if type="classic" variable="container-title" match="all">
         <text macro="bib-chapter-en"/>
       </else-if>
       <else-if type="webpage post-weblog" match="any">
