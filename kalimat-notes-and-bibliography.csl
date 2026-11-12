@@ -16,8 +16,8 @@
     </author>
     <category citation-format="note"/>
     <category field="literature"/>
-    <summary>KALiMaT short notes and bibliography for mixed Arabic- and Latin-script sources. Version 1.1.0.</summary>
-    <updated>2026-11-04T00:00:00+00:00</updated>
+    <summary>KALiMaT short notes and bibliography for mixed Arabic- and Latin-script sources. Version 1.2.0.</summary>
+    <updated>2026-11-12T00:00:00+00:00</updated>
     <rights license="http://creativecommons.org/licenses/by-sa/4.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 4.0 International License.</rights>
   </info>
 
@@ -880,7 +880,13 @@
         <text value="رقم الحفظ"/>
         <text variable="archive_location" prefix="&#x200F;&#x200E;" suffix="&#x200E;"/>
       </group>
-      <text variable="title" prefix="(" suffix=")" font-weight="bold"/>
+      <!-- The author, when known, leads the parenthesis in natural order: (ابن ظفر الصقلي، سلوان المطاع). -->
+      <group prefix="(" suffix=")" delimiter="، ">
+        <names variable="author">
+          <name delimiter="، و" initialize="false"/>
+        </names>
+        <text variable="title" font-weight="bold"/>
+      </group>
     </group>
   </macro>
 
@@ -1069,7 +1075,13 @@
       <group delimiter=" ">
         <text value="MS"/>
         <text variable="archive_location"/>
-        <text variable="title" prefix="(" suffix=")" font-style="italic"/>
+        <!-- The author, when known, leads the parenthesis in natural order: (Ibrāhīm al-Ḥakīm, Riḥla…). -->
+        <group prefix="(" suffix=")" delimiter=", ">
+          <names variable="author">
+            <name and="text" delimiter=", " delimiter-precedes-last="contextual" initialize="false"/>
+          </names>
+          <text variable="title" font-style="italic"/>
+        </group>
       </group>
     </group>
   </macro>

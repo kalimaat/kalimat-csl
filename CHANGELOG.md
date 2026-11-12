@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.0 (2026-11-12)
+
+- **Manuscript authors.** A manuscript with an Author names them in the bibliography before the title, inside the parenthesis: `(ابن ظفر الصقلي، **سلوان المطاع**)`; `(Ibrāhīm al-Ḥakīm, *Riḥlat…*)`. Entries without an author and all manuscript notes are unchanged.
+
 ## 1.1.0 (2026-11-04)
 
 - **Historical texts inside a book.** A Book Section with Extra `type: classic` keeps the chapter form in the bibliography (quoted title, `In` + book title, pages) instead of turning into a book entry; its note quotes the short title: `al-Muḥāsibī, “Fahm al-Qurʾān” (ed. and trans. Metzler), 30`.
